@@ -120,6 +120,7 @@
 				</configuration>
 			</plugin>
 			
+			
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
@@ -172,6 +173,7 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+				
 			</plugins>
 		</pluginManagement>
 	</build>

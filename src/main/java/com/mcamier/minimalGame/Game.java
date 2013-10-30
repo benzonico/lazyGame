@@ -21,6 +21,8 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glViewport;
 
+import java.net.URL;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
@@ -43,7 +45,8 @@ public class Game extends AbstractGame {
 
 	@Override
 	public void initialize() {
- 		ResourceManager.setResourceLoader(new ZipResourceLoaderImpl(GameConstant.ARCHIVE_FILE));
+		URL zipPath = ClassLoader.getSystemResource(GameConstant.ARCHIVE_FILENAME);
+ 		ResourceManager.setResourceLoader(new ZipResourceLoaderImpl(zipPath));
 		initGL(800, 600);
 		
 		
