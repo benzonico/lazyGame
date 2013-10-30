@@ -29,7 +29,7 @@ import com.mcamier.lazyEngine.actor.impl.Actor;
 import com.mcamier.lazyEngine.actor.impl.AnimationComponent;
 import com.mcamier.lazyEngine.actor.impl.SpriteComponent;
 import com.mcamier.lazyEngine.actor.impl.TransformComponent;
-import com.mcamier.lazyEngine.game.impl.AbstractGame;
+import com.mcamier.lazyEngine.game.AbstractGame;
 import com.mcamier.lazyEngine.resource.impl.ResourceManager;
 import com.mcamier.lazyEngine.resource.impl.ZipResourceLoaderImpl;
 
@@ -42,7 +42,7 @@ public class Game extends AbstractGame {
 	}
 
 	@Override
-	public void initialization() {
+	public void initialize() {
  		ResourceManager.setResourceLoader(new ZipResourceLoaderImpl(GameConstant.ARCHIVE_FILE));
 		initGL(800, 600);
 		
@@ -110,6 +110,13 @@ public class Game extends AbstractGame {
 		glLoadIdentity();
 		glOrtho(0, width, height, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+	}
+	
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
