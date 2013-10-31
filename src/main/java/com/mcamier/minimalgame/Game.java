@@ -1,4 +1,4 @@
-package com.mcamier.minimalGame;
+package com.mcamier.minimalgame;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;

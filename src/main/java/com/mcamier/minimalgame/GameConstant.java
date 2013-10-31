@@ -1,4 +1,4 @@
-package com.mcamier.minimalGame;
+package com.mcamier.minimalgame;
 
 public class GameConstant {
 	public static String ARCHIVE_FILENAME = "Assets.zip";
