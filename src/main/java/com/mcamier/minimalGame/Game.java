@@ -22,6 +22,9 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glViewport;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
@@ -38,6 +41,7 @@ import com.mcamier.lazyEngine.resource.impl.ZipResourceLoaderImpl;
 public class Game extends AbstractGame {
 
 	private Actor player;
+	private List<Actor> gameObjects;
 	
 	public Game() {
 		super();
@@ -47,14 +51,12 @@ public class Game extends AbstractGame {
 	public void initialize() {
 		URL zipPath = ClassLoader.getSystemResource(GameConstant.ARCHIVE_FILENAME);
  		ResourceManager.setResourceLoader(new ZipResourceLoaderImpl(zipPath));
-		initGL(800, 600);
+ 		gameObjects = new ArrayList<Actor>();
+		
+ 		initGL(800, 600);
 		
 		
 		player = new Actor();
-		
-		SpriteComponent spriteComponent = new SpriteComponent(player);
-		spriteComponent.setSprite(ResourceManager.getInstance().getTexture(GameConstant.RES_POOPY));
-		player.putComponent(spriteComponent);
 		
 		AnimationComponent animation = new AnimationComponent(player);
 		animation.setFrameCount(7);
@@ -63,14 +65,20 @@ public class Game extends AbstractGame {
 		animation.setLoop(false);
 		animation.setSprite(ResourceManager.getInstance().getTexture(GameConstant.RES_POOPY));
 		player.putComponent(animation);
+		
+		this.gameObjects.add(player);
 	}
 
 	@Override
 	public void update(int delta) {
+		Iterator<Actor> gameObjectsIterator = this.gameObjects.iterator();
+		while(gameObjectsIterator.hasNext()) {
+			gameObjectsIterator.next().update(delta);
+		}
+		
 		if( Keyboard.isKeyDown(Keyboard.KEY_RIGHT) ) {
 			System.out.println("Key X pressed");
 			
-
 			TransformComponent c = (TransformComponent) player.getComponent(ComponentTypeEnum.TRANSFORM);
 			c.getPosition().x += 1.5f;
 		}
@@ -88,7 +96,7 @@ public class Game extends AbstractGame {
 		
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0);
-			glVertex2f(c.getPosition().x,c.getPosition().y);
+			glVertex2f(c.getPosition().x, c.getPosition().y);
 			glTexCoord2f(1,0);
 			glVertex2f(c.getPosition().x+t.getSprite().getTextureWidth()/3,c.getPosition().y);
 			glTexCoord2f(1,1);
@@ -118,8 +126,8 @@ public class Game extends AbstractGame {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-		
+		this.gameObjects.clear();
+		this.gameObjects = null;
 	}
 	
 	
